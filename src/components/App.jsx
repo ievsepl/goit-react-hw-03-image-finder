@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
-import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
+// import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 
 export class App extends Component {
   state = {
@@ -29,11 +29,11 @@ export class App extends Component {
     // }
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('update');
-    if (prevState.searchQuery) {
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log('update');
+  //   if (prevState.searchQuery) {
+  //   }
+  // }
   render() {
     return (
       <div>

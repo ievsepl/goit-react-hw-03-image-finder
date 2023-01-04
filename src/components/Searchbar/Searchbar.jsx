@@ -11,6 +11,7 @@ class Searchbar extends Component {
     e.preventDefault();
     if (this.state.searchQuery.trim === '') {
       alert('huyushki');
+      return;
     }
     this.props.onSubmitBtn(this.state.searchQuery);
     // this.setState({ searchQuery: '' });
