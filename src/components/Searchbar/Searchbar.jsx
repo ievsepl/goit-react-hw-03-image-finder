@@ -13,14 +13,14 @@ class Searchbar extends Component {
       alert('huyushki');
     }
     this.props.onSubmitBtn(this.state.searchQuery);
-    this.setState({ searchQuery: '' });
+    // this.setState({ searchQuery: '' });
 
-    // this.reset();
+    this.reset();
   };
 
-  // reset = () => {
-  //   this.setState({ searchQuery: '' });
-  // };
+  reset = () => {
+    this.setState({ searchQuery: '' });
+  };
 
   render() {
     return (
