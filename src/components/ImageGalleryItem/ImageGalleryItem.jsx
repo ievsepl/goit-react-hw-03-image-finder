@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 const ImageGalleryItem = ({ queryName, MY_KEY, WEB }) => {
   return (
