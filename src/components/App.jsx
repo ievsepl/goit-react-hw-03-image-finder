@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 // import axios from 'axios';
+import { ToastContainer } from 'react-toastify';
+
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 // import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
@@ -42,7 +44,9 @@ export class App extends Component {
           queryName={this.state.searchQuery}
           MY_KEY={this.state.MY_KEY}
           WEB={this.state.WEB}
+          // name={this.props.}
         />
+        <ToastContainer autoClose={2000} />
       </div>
     );
   }
