@@ -1,45 +1,57 @@
 import ImageGalleryItem from '../ImageGalleryItem/ImageGalleryItem';
 import React, { Component } from 'react';
-import axios from 'axios';
+import { Gallery } from './ImageGallery.styled';
+// import axios from 'axios';
+import fetchData from 'components/services/Api';
 
 class ImageGallery extends Component {
-  state = { pageNumber: 1 };
+  state = {
+    // searchName: '',
+    pictures: [],
+  };
 
-  async componentDidUpdate() {
-    const { queryName, MY_KEY, WEB } = this.props;
-
-    try {
-      console.log(queryName);
-      const response = await axios.get(
-        `${WEB}?key=${MY_KEY}&q=${queryName}&image_type=photo&orientation=horizontal&safesearch=true&page=${this.pageNumber}&per_page=40`
-      );
-      console.log(response);
-      const data = await response.json();
-      console.log(data);
-
-      return data;
-      // console.log(data);
-    } catch (error) {
-      console.error(error);
+  componentDidUpdate(prevProps, prevState) {
+    const { queryName } = this.props;
+    // const { data } = this.state;
+    if (queryName !== prevProps.queryName) {
+      try {
+        fetchData(queryName).then(data => {
+          return data.map(({ id, webformatURL, largeImageURL }) => {
+            // const picture = { id, webformatURL, largeImageURL };
+            // console.log(picture);
+            return this.setState(prevState => {
+              return {
+                pictures: [
+                  ...prevState.pictures,
+                  { id, webformatURL, largeImageURL },
+                ],
+              };
+            });
+          });
+        });
+      } catch (error) {
+        console.error(error);
+      }
+      window.addEventListener('click', this.onGetBigPic);
     }
   }
+
+  // onGetBigPic = e => {
+  //   console.dir(e.target.nodeName);
+  //   console.log(e.currentTarget);
+  //   if (e.target.nodeName === 'IMG') {
+  //     this.props.toggleModal();
+  //   }
+  // };
+
+  openModal = () => {};
+
   render() {
-    const { queryName, MY_KEY, WEB } = this.props;
     return (
-      <ul className="gallery">
-        {}
-        <ImageGalleryItem queryName={queryName} MY_KEY={MY_KEY} WEB={WEB} />
-      </ul>
+      <Gallery>
+        <ImageGalleryItem picData={this.state.pictures} />
+      </Gallery>
     );
   }
 }
 export default ImageGallery;
-
-// const ImageGallery = ({ queryName, MY_KEY, WEB }) => {
-//   return (
-//     <ul className="gallery">
-//       {}
-//       <ImageGalleryItem queryName={queryName} MY_KEY={MY_KEY} WEB={WEB} />
-//     </ul>
-//   );
-// };

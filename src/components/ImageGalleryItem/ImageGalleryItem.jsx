@@ -1,24 +1,23 @@
-// import axios from 'axios';
+import React, { Component } from 'react';
+import { GalleryItem, GalleryItemImg } from './ImageGalleryItem.styled';
 
-const ImageGalleryItem = ({ queryName, MY_KEY, WEB }) => {
-  return (
-    <li className="gallery-item">
-      <img src="" alt="" />
-    </li>
-  );
-};
+class ImageGalleryItem extends Component {
+  state = {
+    activePicIdx: 0,
+  };
+  setActiveIdx = index => {
+    console.log(index);
+    // this.setState({ activePicIdx: index });
+  };
+  render() {
+    const { picData } = this.props;
+    return picData.map(({ id, webformatURL }, index) => {
+      return (
+        <GalleryItem key={id} onClick={this.setActiveIdx(index)}>
+          <GalleryItemImg src={webformatURL} alt="" />
+        </GalleryItem>
+      );
+    });
+  }
+}
 export default ImageGalleryItem;
-
-// async componentDidMount(name, pageNumber) {
-//   try {
-//     const response = await axios.get(
-//       `${this.state.WEB}?key=${this.state.MY_KEY}&q=${name}&image_type=photo&orientation=horizontal&safesearch=true&page=${pageNumber}&per_page=40`
-//     );
-//     console.log(response);
-//     // const data = await response.json();
-//     return response;
-//     // console.log(data);
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }

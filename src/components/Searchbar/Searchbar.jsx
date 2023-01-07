@@ -1,50 +1,72 @@
 import React, { Component } from 'react';
 import { toast } from 'react-toastify';
-import axios from 'axios';
+// import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
+// import fetchData from 'components/services/Api';
+import {
+  SearchForm,
+  SearchFormButton,
+  SearchFormBtnLab,
+  SearchFormInput,
+  SearchbarStyles,
+} from './Searchbar.styled';
 
 class Searchbar extends Component {
   state = {
-    searchQuery: '',
+    searchName: '',
+    data: [],
   };
 
   onInput = e => {
-    this.setState({ searchQuery: e.currentTarget.value.toLowerCase() });
-    console.log(e.currentTarget.value);
+    this.setState({ searchName: e.currentTarget.value.toLowerCase() });
+    // console.log(this.state.searchName);
   };
 
   onSendSearchQuery = e => {
     e.preventDefault();
-    if (this.state.searchQuery.trim() === '') {
+    if (this.state.searchName.trim() === '') {
       return toast.error('Please write your query');
     }
-    this.props.onSubmitBtn(this.state.searchQuery);
+    console.log(this.state.searchName);
 
+    this.props.onSubmitBtn(this.state.searchName);
     this.reset();
+
+    // fetchData(this.state.searchName).then(data => this.setState({ data }));
+
+    // fetchData(this.state.searchName).then(data => {
+    //   return data.map(({ id, webformatURL, largeImageURL }) => {
+    //     const picture = { id, webformatURL, largeImageURL };
+    //     // console.log(picture);
+    //     return this.setState(prevState => {
+    //       return { data: [...prevState.data, picture] };
+    //     });
+    //   });
+    // });
+    // console.log(this.state.data);
   };
 
   reset = () => {
-    this.setState({ searchQuery: '' });
+    this.setState({ searchName: '' });
   };
 
   render() {
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.onSendSearchQuery}>
-          <button type="submit" className="button">
-            <span className="button-label">Search</span>
-          </button>
-          <input
-            className="input"
+      <SearchbarStyles>
+        <SearchForm onSubmit={this.onSendSearchQuery}>
+          <SearchFormButton type="submit">
+            <SearchFormBtnLab>s</SearchFormBtnLab>
+          </SearchFormButton>
+          <SearchFormInput
             type="text"
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
             onInput={this.onInput}
-            value={this.state.searchQuery}
+            value={this.state.searchName}
           />
-        </form>
-      </header>
+        </SearchForm>
+      </SearchbarStyles>
     );
   }
 }
