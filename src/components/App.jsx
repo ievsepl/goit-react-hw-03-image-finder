@@ -54,11 +54,13 @@ export class App extends Component {
             console.log(pictures);
 
             return toast.error(`There are no images with name: ${searchName}`);
+          } else if (data.length < 12) {
+            toast.warn('There are no more images to load!');
+            this.setState({ status: 'idle' });
           }
         });
-        this.setState({ status: 'idle' });
       } catch (error) {
-        // this.setState({ status: 'rejected' });
+        this.setState({ status: 'rejected' });
 
         console.error(error);
       }
@@ -96,15 +98,19 @@ export class App extends Component {
     return (
       <AppStyle>
         <Searchbar onSubmitBtn={onSubmit} />
-        <ImageGallery
-          picData={pictures}
-          toggleModal={toggleModal}
-          setActivePic={setActivePic}
-        />
+        {status === 'resolved' && (
+          <ImageGallery
+            picData={pictures}
+            toggleModal={toggleModal}
+            setActivePic={setActivePic}
+          />
+        )}
         {status === 'pending' && <Loader />}
         {renderModal && <Modal toggleModal={toggleModal} largePic={largeImg} />}
         {status === 'resolved' && <LoadMoreBtn onLoadMore={loadMorePic} />}
-        {/* {status === 'rejected' && <span>{}</span>} */}
+        {status === 'rejected' && (
+          <span>Something Wrong. Please try again!</span>
+        )}
         <ToastContainer autoClose={2000} />
       </AppStyle>
     );
