@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { toast } from 'react-toastify';
 // import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
-// import fetchData from 'components/services/Api';
+import PropTypes from 'prop-types';
+
 import {
   SearchForm,
   SearchFormButton,
@@ -12,14 +13,15 @@ import {
 } from './Searchbar.styled';
 
 class Searchbar extends Component {
+  static propTypes = {
+    onSubmitBtn: PropTypes.func.isRequired,
+  };
   state = {
     searchName: '',
-    data: [],
   };
 
   onInput = e => {
     this.setState({ searchName: e.currentTarget.value.toLowerCase() });
-    // console.log(this.state.searchName);
   };
 
   onSendSearchQuery = e => {
@@ -27,23 +29,9 @@ class Searchbar extends Component {
     if (this.state.searchName.trim() === '') {
       return toast.error('Please write your query');
     }
-    console.log(this.state.searchName);
 
     this.props.onSubmitBtn(this.state.searchName);
     this.reset();
-
-    // fetchData(this.state.searchName).then(data => this.setState({ data }));
-
-    // fetchData(this.state.searchName).then(data => {
-    //   return data.map(({ id, webformatURL, largeImageURL }) => {
-    //     const picture = { id, webformatURL, largeImageURL };
-    //     // console.log(picture);
-    //     return this.setState(prevState => {
-    //       return { data: [...prevState.data, picture] };
-    //     });
-    //   });
-    // });
-    // console.log(this.state.data);
   };
 
   reset = () => {
@@ -51,9 +39,16 @@ class Searchbar extends Component {
   };
 
   render() {
+    //
+    const {
+      state: { searchName },
+      onSendSearchQuery,
+      onInput,
+    } = this;
+
     return (
       <SearchbarStyles>
-        <SearchForm onSubmit={this.onSendSearchQuery}>
+        <SearchForm onSubmit={onSendSearchQuery}>
           <SearchFormButton type="submit">
             <SearchFormBtnLab>s</SearchFormBtnLab>
           </SearchFormButton>
@@ -62,8 +57,8 @@ class Searchbar extends Component {
             autoComplete="off"
             autoFocus
             placeholder="Search images and photos"
-            onInput={this.onInput}
-            value={this.state.searchName}
+            onInput={onInput}
+            value={searchName}
           />
         </SearchForm>
       </SearchbarStyles>
