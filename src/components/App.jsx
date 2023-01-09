@@ -98,13 +98,13 @@ export class App extends Component {
     return (
       <AppStyle>
         <Searchbar onSubmitBtn={onSubmit} />
-        {status === 'resolved' && (
-          <ImageGallery
-            picData={pictures}
-            toggleModal={toggleModal}
-            setActivePic={setActivePic}
-          />
-        )}
+
+        <ImageGallery
+          picData={pictures}
+          toggleModal={toggleModal}
+          setActivePic={setActivePic}
+        />
+
         {status === 'pending' && <Loader />}
         {renderModal && <Modal toggleModal={toggleModal} largePic={largeImg} />}
         {status === 'resolved' && <LoadMoreBtn onLoadMore={loadMorePic} />}
