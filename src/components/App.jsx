@@ -9,7 +9,7 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import { LoadMoreBtn } from './Button/Button';
 import { AppStyle } from './App.styled';
-import fetchData from 'components/services/Api';
+import fetchData from 'services/Api';
 import Loader from './Loader/Loader';
 
 // idle - простій

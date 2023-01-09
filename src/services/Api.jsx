@@ -13,9 +13,3 @@ const fetchData = async (queryName, pageNumber) => {
   // console.log(hits);
   return hits;
 };
-
-export default fetchData;
-fetchData.propTypes = {
-  pageNumber: PropTypes.number.isRequired,
-  queryName: PropTypes.string.isRequired,
-};
